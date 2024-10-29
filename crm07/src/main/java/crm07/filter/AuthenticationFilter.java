@@ -45,6 +45,14 @@ public class AuthenticationFilter extends HttpFilter {
 						res.sendRedirect(req.getContextPath());
 					}
 				break;
+				case "/roles":
+					if (authen.equals("ROLE_ADMIN")) {
+						chain.doFilter(req, res);
+					}
+					else {
+						res.sendRedirect(req.getContextPath());
+					}
+				break;
 
 			}
 		}

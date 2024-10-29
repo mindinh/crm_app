@@ -12,4 +12,9 @@ public class RoleService {
 		return roleRepository.findAll();
 		
 	}
+	
+	public boolean addRole(String rolename, String roledesc) {
+		return roleRepository.insertRole(rolename, rolename) > 0;
+		
+	}
 }

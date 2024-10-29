@@ -23,6 +23,20 @@ public class RoleController extends HttpServlet {
 			case "/roles":
 				loadRoles(req, resp);
 			break;
+			case "/role-add":
+				req.getRequestDispatcher("/role-add.jsp").forward(req, resp);
+			break;
+		}
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String path = req.getServletPath();
+		
+		switch (path) {
+			case "/role-add":
+				addRolePost(req, resp);
+			break;
 		}
 	}
 	
@@ -32,4 +46,15 @@ public class RoleController extends HttpServlet {
 		req.setAttribute("roleList", roleList);
 		req.getRequestDispatcher("/role-table.jsp").forward(req, resp);
 	}
+	
+	private void addRolePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String pRolename = req.getParameter("rolename");
+		String pRoleDesc = req.getParameter("roledesc");
+		
+		roleService.addRole(pRolename, pRoleDesc);
+		
+		resp.sendRedirect(req.getContextPath() + "/roles");
+	}
+	
+	
 }

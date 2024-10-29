@@ -37,4 +37,25 @@ public class RoleRepository {
 		return roleList;
 		
 	}
+	
+	public int insertRole(String rolename, String roledesc) {
+		int rowInserted = 0;
+		Connection conn = MysqlConfig.getConnection();
+		String query = "INSERT INTO roles(name, description) VALUES (?, ?)";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setString(1, rolename);
+			prepStatement.setString(2, roledesc);
+			
+			
+			rowInserted = prepStatement.executeUpdate();
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Insert role error" + e.getMessage());
+		}
+		
+		return rowInserted;
+	}
 }
