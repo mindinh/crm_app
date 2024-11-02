@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,19 +94,19 @@
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="user-table.html" class="waves-effect"><i class="fa fa-user fa-fw"
+                        <a href="users" class="waves-effect"><i class="fa fa-user fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Thành viên</span></a>
                     </li>
                     <li>
-                        <a href="role-table.html" class="waves-effect"><i class="fa fa-modx fa-fw"
+                        <a href="roles" class="waves-effect"><i class="fa fa-modx fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Quyền</span></a>
                     </li>
                     <li>
-                        <a href="groupwork.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="jobs" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                     </li>
                     <li>
-                        <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="tasks" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                     </li>
                     <li>
@@ -136,8 +139,8 @@
                                     <div class="user-content">
                                         <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
                                                 class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white">Nguyễn Văn Tèo</h4>
-                                        <h5 class="text-white">info.teo@gmail.com</h5>
+                                        <h4 class="text-white">${ username }</h4>
+                                        <h5 class="text-white">${ email }</h5>
                                     </div>
                                 </div>
                             </div>

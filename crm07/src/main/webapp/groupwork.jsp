@@ -106,7 +106,7 @@
                                 aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                     </li>
                     <li>
-                        <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="tasks" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                     </li>
                     <li>
@@ -129,7 +129,7 @@
                         <h4 class="page-title">Danh sách dự án</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                        <a href="groupwork-add.html" class="btn btn-sm btn-success">Thêm mới</a>
+                        <a href="job-add" class="btn btn-sm btn-success">Thêm mới</a>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>

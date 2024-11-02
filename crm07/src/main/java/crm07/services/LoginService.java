@@ -26,8 +26,10 @@ public class LoginService {
 				resp.addCookie(passCookie);
 			}
 			
+			Cookie userCookie = new Cookie("userid", listUserEntity.get(0).getEmail());
 			Cookie authenCookie = new Cookie("authen", listUserEntity.get(0).getRoleName());
 			resp.addCookie(authenCookie);
+			resp.addCookie(userCookie);
 		}
 
 		return isSuccess;

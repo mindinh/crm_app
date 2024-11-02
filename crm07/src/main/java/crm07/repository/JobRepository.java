@@ -1,13 +1,14 @@
 package crm07.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import config.MysqlConfig;
 import crm07.entity.JobEntity;
-import crm07.entity.RoleEntity;
+
 
 public class JobRepository {
 	
@@ -42,4 +43,30 @@ public class JobRepository {
 		return jobList;
 	}
 	
+	public int insertJob(String name, String startDate, String endDate) {
+		int rowInserted = 0;
+		Connection conn = MysqlConfig.getConnection();
+		String query = "INSERT INTO jobs (name, start_date, end_date) VALUES (?, ?, ?)";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			
+			
+			System.out.println("test " + startDate + " " + endDate);
+			
+			prepStatement.setString(1, name);
+			prepStatement.setString(2, startDate);
+			prepStatement.setString(3, endDate);
+			
+			rowInserted = prepStatement.executeUpdate();
+			
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Insert job error" + e.getMessage());
+		}
+		
+		return rowInserted;
+		
+	}
 }

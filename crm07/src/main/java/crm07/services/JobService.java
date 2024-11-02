@@ -12,4 +12,12 @@ public class JobService {
 		return jobRepository.findAll();
 		
 	}
+	
+	public boolean insertJob(String name, String start, String end) {
+		String startDate = start.split("/")[2] + start.split("/")[1] + start.split("/")[0];
+		String endDate = end.split("/")[2] + end.split("/")[1] + end.split("/")[0];
+		
+		return jobRepository.insertJob(name, startDate, endDate) > 0;
+		
+	}
 }
