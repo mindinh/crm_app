@@ -1,6 +1,7 @@
 package crm07.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,8 +28,10 @@ public class ProfileController extends HttpServlet {
 	}
 	
 	private void loadUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		profileService.getUser(req, resp);
+		profileService.getUserAndTasks(req, resp);
 		
 	}
+	
+	
 	
 }

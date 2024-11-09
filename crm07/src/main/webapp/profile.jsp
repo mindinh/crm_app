@@ -44,7 +44,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="top-left-part">
-                    <a class="logo" href="index.html">
+                    <a class="logo" href="/crm07/">
                         <b>
                             <img src="plugins/images/pixeladmin-logo.png" alt="home" />
                         </b>
@@ -72,7 +72,7 @@
                                 <b class="hidden-xs">Cybersoft</b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html">Thông tin cá nhân</a></li>
+                                <li><a href="/profile">Thông tin cá nhân</a></li>
                                 <li><a href="#">Thống kê công việc</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Đăng xuất</a></li>
@@ -90,7 +90,7 @@
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                        <a href="/crm07/" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
@@ -155,7 +155,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                            <h3 class="counter text-right m-t-15 text-danger">${ unfinishedTasks }%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i data-icon="E" class="linea-icon linea-basic"></i>
@@ -165,7 +165,7 @@
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-danger" role="progressbar"
                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 20%"></div>
+                                                    style="width: ${ unfinishedTasks }%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                            <h3 class="counter text-right m-t-15 text-megna">${ inProgressTasks }%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -187,7 +187,7 @@
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-megna" role="progressbar"
                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 50%"></div>
+                                                    style="width: ${ inProgressTasks }%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +199,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                            <h3 class="counter text-right m-t-15 text-primary">${ finishedTasks }%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -209,7 +209,7 @@
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-primary" role="progressbar"
                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 30%"></div>
+                                                    style="width: ${ finishedTasks }%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -241,28 +241,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="${ taskList }" var="item">
+                                    
                                         <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đã hoàn thành</td>
+                                            <td>${ item.id }</td>
+                                            <td>${ item.taskName }</td>
+                                            <td>${ item.jobName }</td>
+                                            <td>${ item.startDate }</td>
+                                            <td>${ item.endDate }</td>
+                                            <td>${ item.status }</td>
                                             <td>
                                                 <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế database</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đang thực hiện</td>
-                                            <td>
-                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
-                                            </td>
-                                        </tr>
+                                    
+                                    </c:forEach>
+                                        
                                     </tbody>
                                 </table>
                             </div>
