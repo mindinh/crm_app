@@ -8,14 +8,17 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import crm07.entity.StatusEntity;
 import crm07.entity.TaskEntity;
 import crm07.entity.UserEntity;
+import crm07.repository.StatusRepository;
 import crm07.repository.TaskRepository;
 import crm07.repository.UserRepository;
 
 public class ProfileService {
 	private UserRepository userRepository = new UserRepository();
 	private TaskRepository taskRepository = new TaskRepository();
+	private StatusRepository statusRepository = new StatusRepository();
 	
 	public void getUserAndTasks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
 		Cookie[] cookies = req.getCookies();
@@ -59,9 +62,50 @@ public class ProfileService {
 		
 		req.setAttribute("finishedTasks", String.format("%.0f", (numOfFinishedTasks / numOfTasks) * 100));
 		req.setAttribute("inProgressTasks", String.format("%.0f", (numOfInProgressTasks / numOfTasks) * 100));
-		req.setAttribute("unfinishedTasks", String.format("%.0f", (numOfFinishedTasks / numOfTasks) * 100));
+		req.setAttribute("unfinishedTasks", String.format("%.0f", (numOfUnfinishedTasks / numOfTasks) * 100));
 		
 		req.getRequestDispatcher("profile.jsp").forward(req, resp);
+		
+	}
+	
+	public void getUserTask(HttpServletRequest req, HttpServletResponse resp, String id) throws ServletException, IOException  {
+		Cookie[] cookies = req.getCookies();
+		ArrayList<TaskEntity> taskList = new ArrayList<TaskEntity>();
+		ArrayList<StatusEntity> statusList = new ArrayList<StatusEntity>();
+		
+		String value = "";
+		try {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					value = cookie.getValue();
+				}
+				
+			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		taskList = taskRepository.findByTaskID(id);
+		statusList = statusRepository.findAll();
+		
+		
+		
+		req.setAttribute("task", taskList.get(0));
+		req.setAttribute("statusList", statusList);
+		req.setAttribute("status", taskList.get(0).getStatus());
+		
+		System.out.println(taskList.get(0).getStatus());
+		
+		req.getRequestDispatcher("profile-edit.jsp").forward(req, resp);
+	}
+	
+	public boolean updateUserTask(HttpServletRequest req, HttpServletResponse resp, String id, String status) 
+			throws ServletException, IOException {
+		
+		return taskRepository.updateById(id, status) > 0;
+		
 		
 	}
 	

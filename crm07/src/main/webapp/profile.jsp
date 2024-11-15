@@ -251,7 +251,7 @@
                                             <td>${ item.endDate }</td>
                                             <td>${ item.status }</td>
                                             <td>
-                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
+                                                <a href="profile-edit?id=${ item.id }" class="btn btn-sm btn-primary">Cập nhật</a>
                                             </td>
                                         </tr>
                                     
