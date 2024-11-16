@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-
 // urlPatterns đường dẫn sẽ chạy filter
-@WebFilter(filterName = "authenFilter", urlPatterns = {"/users"})
+@WebFilter(filterName = "authenFilter", urlPatterns = {"/users", "/roles", "/jobs", "/tasks", "/profile"})
 public class AuthenticationFilter extends HttpFilter {
 	
 	@Override
@@ -52,6 +51,15 @@ public class AuthenticationFilter extends HttpFilter {
 					else {
 						res.sendRedirect(req.getContextPath());
 					}
+				break;
+				case "/profile":
+					chain.doFilter(req, res);
+				break;
+				case "/jobs":
+					chain.doFilter(req, res);
+				break;
+				case "/tasks":
+					chain.doFilter(req, res);
 				break;
 
 			}

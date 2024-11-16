@@ -92,6 +92,47 @@ public class TaskRepository {
 		return taskList;
 	}
 	
+	public ArrayList<TaskEntity> findByUserId(int userId) {
+		ArrayList<TaskEntity> taskList = new ArrayList<TaskEntity>();
+		
+		Connection conn = MysqlConfig.getConnection();
+		String query = "SELECT t.id, t.name, j.name 'job_name', u.fullname, t.start_date, t.end_date, s.name 'status_name' FROM tasks t "
+					+ " JOIN jobs j ON t.job_id = j.id"
+					+ " JOIN users u ON t.user_id = u.id"
+					+ " JOIN status s ON t.status_id = s.id"
+					+ "	WHERE u.id = ?";
+		
+		
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setInt(1, userId);
+			ResultSet res = prepStatement.executeQuery();
+			
+			
+			while (res.next()) {
+				TaskEntity task = new TaskEntity();
+				task.setId(res.getInt("id"));
+				task.setTaskName(res.getString("name"));
+				task.setStartDate(res.getDate("start_date"));
+				task.setEndDate(res.getDate("end_date"));
+				task.setUser(res.getString("fullname"));
+				task.setJobName(res.getString("job_name"));
+				task.setStatus(res.getString("status_name"));
+				
+				taskList.add(task);
+				
+			}
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Find task by user id error" + e.getMessage());
+		}	
+		
+		
+		return taskList;
+	}
+	
 	
 	public ArrayList<TaskEntity> findByTaskID(String id) {
 		ArrayList<TaskEntity> taskList = new ArrayList<TaskEntity>();

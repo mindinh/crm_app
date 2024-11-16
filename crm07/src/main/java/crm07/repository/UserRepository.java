@@ -44,6 +44,36 @@ public class UserRepository {
 		return userList;
 	}
 	
+	public UserEntity findById(int id) {
+		UserEntity user = new UserEntity();
+		
+		Connection conn = MysqlConfig.getConnection();
+		String query = "SELECT * FROM users u WHERE u.id = ?";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setInt(1, id);
+			ResultSet res = prepStatement.executeQuery();
+			
+			
+			while (res.next()) {
+				user.setId(res.getInt("id"));
+				user.setEmail(res.getString("email"));
+				user.setFullname(res.getString("fullname"));
+				
+				
+				
+			}
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Find user by id error " + e.getMessage());
+		}
+		
+		return user;
+	}
+	
+		
 	public ArrayList<UserEntity> findByEmail(String email) {
 		ArrayList<UserEntity> userList = new ArrayList<UserEntity>();
 		

@@ -37,7 +37,6 @@ public class LoginController extends HttpServlet {
 		boolean isSuccess = loginService.checkLogin(pEmail, pPassword, resp, isRemember);
 		
 		
-		System.out.println("login is " + isSuccess);
 		
 		if (isSuccess) {
 			resp.sendRedirect(req.getContextPath() + "/");

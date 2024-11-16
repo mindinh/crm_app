@@ -13,7 +13,7 @@ import crm07.entity.RoleEntity;
 import crm07.entity.UserEntity;
 import crm07.services.UserService;
 
-@WebServlet(name="userController", urlPatterns = {"/users", "/user-add"})
+@WebServlet(name="userController", urlPatterns = {"/users", "/user-add", "/user-details"})
 public class UserController extends HttpServlet{
 	
 	private UserService userService = new UserService();
@@ -29,6 +29,10 @@ public class UserController extends HttpServlet{
 			break;
 			case "/user-add":
 				addUser(req, resp);
+				
+			break;
+			case "/user-details":
+				loadUserDetails(req, resp);
 				
 			break;
 		}
@@ -81,5 +85,13 @@ public class UserController extends HttpServlet{
 		resp.sendRedirect(req.getContextPath() + "/users");
 	}
 		
+	private void loadUserDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String pUserId = req.getParameter("id");
+		
+		userService.getUserDetails(req, resp, pUserId);
+		
+		
+		req.getRequestDispatcher("user-details.jsp").forward(req, resp);
+	}
 
 }
