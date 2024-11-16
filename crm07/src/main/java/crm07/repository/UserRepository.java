@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import config.MysqlConfig;
+import crm07.entity.JobEntity;
 import crm07.entity.UserEntity;
 
 public class UserRepository {
@@ -149,6 +150,35 @@ public class UserRepository {
 		
 		return rowInserted;
 		
+	}
+	
+	public UserEntity findByName(String name) {
+		UserEntity user = new UserEntity();
+		Connection conn = MysqlConfig.getConnection();
+		String query = "SELECT * FROM users u WHERE u.fullname = ?";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setString(1, name);
+			ResultSet res = prepStatement.executeQuery();
+			
+			
+			while (res.next()) {
+				
+				user.setId(res.getInt("id"));
+				user.setFullname(res.getString("fullname"));
+				
+				
+				
+				
+			}
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Find user by name error" + e.getMessage());
+		}
+		
+		return user;
 	}
 	
 	

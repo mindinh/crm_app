@@ -131,10 +131,10 @@ public class TaskRepository {
 		return taskList;
 	}
 	
-	public int updateById(String id, String status) {
+	public int updateById(String id, int statusId) {
 		
 		Connection conn = MysqlConfig.getConnection();
-		int statusId = statusRepository.findByName(status).get(0).getId();
+		
 		
 		String query = "UPDATE tasks SET "
 					 + "status_id = ? "
@@ -156,5 +156,29 @@ public class TaskRepository {
 		return rowUpdated;
 	}
 	
+	public int insertTask(int jobId, String taskName, int userId, String startDate, String endDate) {
+		Connection conn = MysqlConfig.getConnection();
+		String query = "INSERT INTO tasks (name, start_date, end_date, user_id, job_id, status_id) VALUES (?, ?, ?, ?, ?, ?)";
+		int rowInserted = 0;
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setString(1, taskName);
+			prepStatement.setString(2, startDate);
+			prepStatement.setString(3, endDate);
+			prepStatement.setInt(4, userId);
+			prepStatement.setInt(5, jobId);
+			prepStatement.setInt(6, 1);
+			
+			rowInserted = prepStatement.executeUpdate();
+
+		} 
+		catch(Exception e) {
+			System.out.println("insert task error " + e.getMessage());
+		}
+		
+		return rowInserted;
+		
+	}
 
 }

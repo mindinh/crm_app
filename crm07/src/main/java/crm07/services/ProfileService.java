@@ -104,7 +104,9 @@ public class ProfileService {
 	public boolean updateUserTask(HttpServletRequest req, HttpServletResponse resp, String id, String status) 
 			throws ServletException, IOException {
 		
-		return taskRepository.updateById(id, status) > 0;
+		int statusId = statusRepository.findByName(status).get(0).getId();
+		
+		return taskRepository.updateById(id, statusId) > 0;
 		
 		
 	}

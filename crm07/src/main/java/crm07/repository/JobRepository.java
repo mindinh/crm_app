@@ -69,4 +69,34 @@ public class JobRepository {
 		return rowInserted;
 		
 	}
+	
+	public JobEntity findByName(String name) {
+		JobEntity job = new JobEntity();
+		Connection conn = MysqlConfig.getConnection();
+		String query = "SELECT * FROM jobs j WHERE j.name = ?";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setString(1, name);
+			ResultSet res = prepStatement.executeQuery();
+			
+			
+			while (res.next()) {
+				
+				job.setId(res.getInt("id"));
+				job.setJobName(res.getString("name"));
+				job.setStartDate(res.getDate("start_date"));
+				job.setEndDate(res.getDate("end_date"));
+				
+				
+				
+			}
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Find job by name error" + e.getMessage());
+		}
+		
+		return job;
+	}
 }
