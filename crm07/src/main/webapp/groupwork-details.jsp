@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -50,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <i class="fa fa-bars"></i>
                     </a>
                     <div class="top-left-part">
-                        <a class="logo" href="index.html">
+                        <a class="logo" href="/crm07/">
                             <b>
                                 <img src="plugins/images/pixeladmin-logo.png" alt="home" />
                             </b>
@@ -77,10 +80,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <b class="hidden-xs">Cybersoft</b> 
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="profile.html">Thông tin cá nhân</a></li>
+                                    <li><a href="profile">Thông tin cá nhân</a></li>
                                     <li><a href="#">Thống kê công việc</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Đăng xuất</a></li>
+                                    <li><a href="logout">Đăng xuất</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -95,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                        <a href="/crm07/" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
