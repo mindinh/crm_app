@@ -163,7 +163,7 @@
 		                                            <td>${ item.status }</td>
 		                                            <td>
 		                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-		                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
+		                                                <a href="tasks?id=${ item.id }" class="btn btn-sm btn-danger">Xóa</a>
 		                                                <a href="#" class="btn btn-sm btn-info">Xem</a>
 		                                            </td>
 		                                        </tr>

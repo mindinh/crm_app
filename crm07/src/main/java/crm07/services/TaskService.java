@@ -29,6 +29,10 @@ public class TaskService {
 		
 	}
 	
+	public boolean deleteTask(int id) {
+		return taskRepository.deleteByTaskId(id) > 0;
+	}
+	
 	public boolean insertATask(String jobname, String taskname, String username, String startdate, String enddate) {
 		int jobId = jobRepository.findByName(jobname).getId();
 		int userId = userRepository.findByName(username).getId();

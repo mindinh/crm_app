@@ -211,5 +211,39 @@ public class UserRepository {
 		return user;
 	}
 	
+	public ArrayList<UserEntity> findByJobID(int id) {
+		ArrayList<UserEntity> userList = new ArrayList<UserEntity>();
+
+		Connection conn = MysqlConfig.getConnection();
+		String query = "SELECT u.id, u.fullname, u.email FROM users u "
+					+ " JOIN tasks t ON t.user_id = u.id"
+					+ " JOIN jobs j ON j.id = t.job_id"
+					+ " WHERE j.id = ?";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setInt(1, id);
+			ResultSet res = prepStatement.executeQuery();
+			
+			
+			while (res.next()) {
+				UserEntity user = new UserEntity();
+				user.setId(res.getInt("id"));
+				user.setEmail(res.getString("email"));
+				user.setFullname(res.getString("fullname"));
+				
+				userList.add(user);
+				
+			}
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Find user by job id error " + e.getMessage());
+		}
+		
+		
+		
+		return userList;
+	}
 	
 }

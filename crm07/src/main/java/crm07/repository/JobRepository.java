@@ -70,6 +70,36 @@ public class JobRepository {
 		
 	}
 	
+	public ArrayList<JobEntity> findById(int id) {
+		ArrayList<JobEntity> jobList = new ArrayList<JobEntity>();
+		Connection conn = MysqlConfig.getConnection();
+		String query = "SELECT * FROM jobs j WHERE j.id = ?";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setInt(1, id);
+			ResultSet res = prepStatement.executeQuery();
+			
+			
+			while (res.next()) {
+				JobEntity job = new JobEntity();
+				job.setId(res.getInt("id"));
+				job.setJobName(res.getString("name"));
+				job.setStartDate(res.getDate("start_date"));
+				job.setEndDate(res.getDate("end_date"));
+				
+				
+				jobList.add(job);
+			}
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Find job by id error" + e.getMessage());
+		}
+		
+		return jobList;
+	}
+	
 	public JobEntity findByName(String name) {
 		JobEntity job = new JobEntity();
 		Connection conn = MysqlConfig.getConnection();
@@ -98,5 +128,27 @@ public class JobRepository {
 		}
 		
 		return job;
+	}
+	
+	public int deleteById(int id) {
+		int rowDeleted = 0;
+		Connection conn = MysqlConfig.getConnection();
+		String query = "DELETE FROM jobs j WHERE j.id = ?";
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			
+			prepStatement.setInt(1, id);
+			
+			rowDeleted = prepStatement.executeUpdate();
+			
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Delete job by id error" + e.getMessage());
+		}
+		
+		return rowDeleted;
+		
 	}
 }

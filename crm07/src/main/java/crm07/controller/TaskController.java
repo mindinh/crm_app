@@ -47,6 +47,11 @@ public class TaskController extends HttpServlet {
 	}
 	
 	private void loadTasks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String taskId = req.getParameter("id");
+		if (taskId != null) {
+			taskService.deleteTask(Integer.parseInt(taskId));
+		}
+		
 		ArrayList<TaskEntity> taskList = taskService.getAllTasks();
 		req.setAttribute("taskList", taskList);
 		

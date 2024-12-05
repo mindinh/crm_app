@@ -13,7 +13,7 @@ import crm07.entity.JobEntity;
 import crm07.services.JobService;
 import crm07.services.UserService;
 
-@WebServlet(name="jobController", urlPatterns = {"/jobs", "/job-add"})
+@WebServlet(name="jobController", urlPatterns = {"/jobs", "/job-add", "/job-details"})
 public class JobController extends HttpServlet {
 	
 	private JobService jobService = new JobService();
@@ -28,6 +28,10 @@ public class JobController extends HttpServlet {
 			break;
 			case "/job-add":
 				req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
+				
+			break;
+			case "/job-details":
+				loadJobDetails(req, resp);
 				
 			break;
 		}
@@ -47,6 +51,11 @@ public class JobController extends HttpServlet {
 	}
 	
 	private void loadJobs(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String jobId = req.getParameter("id");
+		if (jobId != null) {
+			jobService.deleteJob(Integer.parseInt(jobId));
+		}
+		
 		ArrayList<JobEntity> jobList = jobService.getAllJobs();
 		
 		req.setAttribute("jobList", jobList);
@@ -65,6 +74,14 @@ public class JobController extends HttpServlet {
 		jobService.insertJob(pJobName, pStartDate, pEndDate);
 		
 		resp.sendRedirect(req.getContextPath() + "/jobs");
+		
+	}
+	
+	private void loadJobDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		
+		jobService.getJobDetails(req, resp, id);
+		
 		
 	}
 	

@@ -221,5 +221,87 @@ public class TaskRepository {
 		return rowInserted;
 		
 	}
+	
+	public ArrayList<TaskEntity> findByJobID(int jobid, int userid) {
+		ArrayList<TaskEntity> taskList = new ArrayList<TaskEntity>();
+		
+		Connection conn = MysqlConfig.getConnection();
+		String query = "SELECT t.id, t.name, j.name 'job_name', u.fullname, t.start_date, t.end_date, s.name 'status_name' FROM tasks t "
+					+ " JOIN jobs j ON t.job_id = j.id"
+					+ " JOIN status s ON t.status_id = s.id"
+					+ " JOIN users u ON u.id = t.user_id"
+					+ "	WHERE j.id = ? AND u.id = ?";
+		
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setInt(1, jobid);
+			prepStatement.setInt(2, userid);
+			ResultSet res = prepStatement.executeQuery();
+			
+			
+			while (res.next()) {
+				TaskEntity task = new TaskEntity();
+				task.setId(res.getInt("id"));
+				task.setTaskName(res.getString("name"));
+				task.setStartDate(res.getDate("start_date"));
+				task.setEndDate(res.getDate("end_date"));
+				task.setJobName(res.getString("job_name"));
+				task.setUser(res.getString("fullname"));
+				task.setStatus(res.getString("status_name"));
+				taskList.add(task);
+				
+			}
+			
+		} 
+		catch(Exception e) {
+			System.out.println("Find task by job id and user id error" + e.getMessage());
+		}	
+		
+		
+		return taskList;
+	}
+	
+	public int deleteByJobId(int jobId) {
+		Connection conn = MysqlConfig.getConnection();
+		String query = "DELETE FROM tasks t WHERE t.job_id = ?";
+		int rowDeleted = 0;
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setInt(1, jobId);
+			
+			
+			rowDeleted = prepStatement.executeUpdate();
+
+		} 
+		catch(Exception e) {
+			System.out.println("delete task by job id error " + e.getMessage());
+		}
+		
+		return rowDeleted;
+		
+	}
+	
+	public int deleteByTaskId(int taskId) {
+		Connection conn = MysqlConfig.getConnection();
+		String query = "DELETE FROM tasks t WHERE t.id = ?";
+		int rowDeleted = 0;
+		
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(query);
+			prepStatement.setInt(1, taskId);
+			
+			
+			rowDeleted = prepStatement.executeUpdate();
+
+		} 
+		catch(Exception e) {
+			System.out.println("delete task by task id error " + e.getMessage());
+		}
+		
+		return rowDeleted;
+		
+	}
 
 }
